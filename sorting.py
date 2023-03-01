@@ -91,6 +91,9 @@ def _merged(xs, ys, cmp=cmp_standard):
         if cmp(xs[ixs], ys[iys]) == -1:
             ret.append(xs[ixs])
             ixs += 1
+        else:
+            ret.append(ys[iys])
+            iys += 1
 
     while ixs < len(xs):
         ret.append(xs[ixs])

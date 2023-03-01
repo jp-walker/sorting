@@ -126,7 +126,7 @@ def merge_sorted(xs, cmp=cmp_standard):
         right = xs[mid:]
         left_sorted = merge_sorted(left, cmp=cmp)
         right_sorted = merge_sorted(right, cmp=cmp)
-        return _merged(left, right, cmp=cmp)
+        return _merged(left_sorted, right_sorted, cmp=cmp)
 
 
 
@@ -156,7 +156,18 @@ def quick_sorted(xs, cmp=cmp_standard):
     You should return a sorted version of the input list xs.
     You should not modify the input list xs in any way.
     '''
-# must recurse
+    if len(xs) < 2:
+        return xs
+    else:
+        mid = len(xs) // 2
+        pivot = xs[mid]
+        greater = [x for x in xs if cmp(x, pivot) == 1]
+        lesser = [x for x in xs if cmp(x, pivot) == -1]
+        same = [x for x in xs if x == pivot]
+        sorted_greater = quick_sorted(greater, cmp=cmp)
+        sorted_lesser = quick_sorted(lesser, cmp=cmp)
+        return sorted_lesser + same + sorted_greater
+
 
 def quick_sort(xs, cmp=cmp_standard):
     '''
